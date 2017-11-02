@@ -2,10 +2,10 @@
     <div class="col-md-8">
         <div class="media">
             <div class="media-left">
-                <%= image_tag @user.avatar_url(128), class: 'media-object' %>
+                <%= image_tag current_user.avatar_url(128), class: 'media-object' %>
             </div>
             <div class="media-body">
-                <h2 class="media-heading">Welcome <%= @user.email %>!</h2>
+                <h2 class="media-heading">Welcome <%= current_user.email %>!</h2>
             </div>
         </div>
     </div>
