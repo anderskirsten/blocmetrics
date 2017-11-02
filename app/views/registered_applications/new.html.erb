@@ -1,0 +1,27 @@
+<h1>Track Data on a New Application</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Guidelines for adding tracking to your app:</p>
+        <ul>
+            <li>Make sure your website is live.</li>
+            <li>Provide a valid url for your site.</li>
+            <li>Implement the API in your code as instructed.</li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <%= form_for @app do |f| %>
+            <div class="form-group">
+                <%= f.text_field :name, class: 'form-control', placeholder: "Application Name" %>
+            </div>
+            <div class="form-group">
+                <%= f.text_field :url, class: 'form-control', placeholder: "Application URL i.e. 'https://www.mycoolapp.com'" %>
+            </div>
+            <div class="form-group">
+                <%= f.submit "Save", class: 'btn btn-success' %>
+            </div>
+        <% end %>
+    </div>
+</div>
