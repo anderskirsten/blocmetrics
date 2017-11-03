@@ -1,6 +1,7 @@
 class API::EventsController < ApplicationController
     
    skip_before_action :verify_authenticity_token
+   skip_before_action :authenticate_user!
    
    before_filter :set_access_control_headers
    
@@ -11,18 +12,19 @@ class API::EventsController < ApplicationController
    end
    
    def create
-      @registered_application = RegisteredApplication.find_by(url: request.env['HTTP_ORIGIN']) 
+      registered_application = RegisteredApplication.find_by(url: request.env['HTTP_ORIGIN']) 
+      puts "Registered Application is #{registered_application || 'nil'}"
       
-      unless @registered_application.present?
+      if registered_application == nil
           render json: "Unregistered application", status: :unprocessable_entity
-      end
-      
-      @event = @registered_application.events.new(event_params)
-      
-      if @event.save!
-          render json: @event, status: :created
       else
-          render json: {errors: @event.errors}, status: :unprocessable_entity
+         @event = registered_application.events.new(event_params)
+      
+         if @event.save!
+            render json: @event, status: :created
+         else
+            render json: {errors: @event.errors}, status: :unprocessable_entity
+         end
       end
    end
    
